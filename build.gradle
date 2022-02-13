@@ -70,3 +70,29 @@ flyway {
 bootRun {
     dependsOn += ['flywayClean', 'flywayMigrate']
 }
+
+test {
+    filter {
+
+        includeTestsMatching "*unit*"
+        includeTestsMatching "*component*"
+    }
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+task integrationTest(type: Test) {
+    filter {
+
+        includeTestsMatching "*blackbox*"
+    }
+    useJUnitPlatform()
+}
