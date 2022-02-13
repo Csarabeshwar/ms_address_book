@@ -1,0 +1,69 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "Address Book Service"
+  contact:
+    email: "sarabeshwarc@gmail.com"
+host: "localhost:8090"
+basePath: "/ms_address_book/v1"
+tags:
+- name: "Address Book API"
+  description: "API on getting address book details"
+schemes:
+- "http"
+paths:
+  /address/contacts:
+    get:
+      tags:
+      - "addressBook"
+      summary: "Get all the contacts from address book database"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AddressBookResponse"
+        "500":
+          description: "Internal Server Error"
+definitions:
+  AddressBookResponse:
+    type: "object"
+    properties:
+      contacts:
+        type: "array"
+        items: 
+          $ref: "#/definitions/Contacts"
+          
+  Contacts:
+    type: "object"
+    properties: 
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      mobile:
+        type: "string"
+      title:
+        type: "string"
+        enum:
+        - "Mr"
+        - "Mrs"
+        - "Miss"
+        - "Ms"
+        - "Master"
+        - "Dr"
+        - "Professor"
+      homePhone:
+        type: "string"
+      postCode:
+        type: "string"
+      city:
+        type: "string"
+   
